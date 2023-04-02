@@ -3,6 +3,7 @@ package se.swebot.configs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -16,7 +17,9 @@ import se.swebot.components.EncoderComponent;
 import se.swebot.components.JwtRequestFilter;
 import se.swebot.services.JwtService;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+import java.io.OutputStream;
 
 @Configuration
 @EnableWebSecurity
@@ -41,14 +44,30 @@ public class SecurityConfig {
                 .antMatchers("/auth/*").permitAll()
                 .anyRequest().authenticated()
             .and()
-                .logout().permitAll().logoutSuccessUrl("/login").invalidateHttpSession(true);
+                .logout().permitAll().logoutSuccessUrl("/login").invalidateHttpSession(true)
+            .and()
+                .exceptionHandling()
+                    .accessDeniedHandler((request, response, accessDeniedException) -> {
+                        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+                        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                        OutputStream responseStream = response.getOutputStream();
+                        responseStream.write("{\"status\": \"error\"}".getBytes());
+                        responseStream.flush();
+                    })
+                    .authenticationEntryPoint((request, response, authException) -> {
+                        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+                        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                        OutputStream responseStream = response.getOutputStream();
+                        responseStream.write("{\"status\": \"error\"}".getBytes());
+                        responseStream.flush();
+                    });
 
         http.headers()
                 .frameOptions()
                 .sameOrigin();
 
-        http.exceptionHandling().and().sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 

@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import se.swebot.models.LoginRequest;
 import se.swebot.services.JwtService;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -27,6 +30,8 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
+        Map<String, Object> response = new HashMap<>();
+
         try {
             // Authenticate user
             Authentication authentication = authenticationManager.authenticate(
@@ -37,11 +42,16 @@ public class AuthController {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             String jwtToken = jwtService.generateToken(userDetails);
 
+            response.put("status", "successful");
+            response.put("token", jwtToken);
 
             // Return token in response
-            return ResponseEntity.ok(jwtToken);
+            return ResponseEntity.ok(response);
         } catch (BadCredentialsException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+
+            response.put("status", "error");
+
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
     }
 }
