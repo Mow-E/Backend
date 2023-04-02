@@ -41,6 +41,7 @@ public class SecurityConfig {
                 .antMatchers("/", "/login").anonymous()
                 .antMatchers("/home").hasAuthority("user")
                 .antMatchers("/h2-console", "/h2-console/**").permitAll()
+                .antMatchers("/swagger-ui", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs", "/v3/api-docs/**").permitAll()
                 .antMatchers("/auth/*").permitAll()
                 .anyRequest().authenticated()
             .and()
@@ -82,7 +83,7 @@ public class SecurityConfig {
                 .withDefaultSchema()
                 .withUser(User.withUsername("user")
                         .password(encoder.passwordEncoder().encode("pass"))
-                        .roles("USER"));
+                        .roles("ADMIN"));
     }
 
     @Bean
