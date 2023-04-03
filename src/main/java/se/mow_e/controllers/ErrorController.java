@@ -1,4 +1,4 @@
-package se.swebot.controllers;
+package se.mow_e.controllers;
 
 import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.springframework.http.HttpStatus;

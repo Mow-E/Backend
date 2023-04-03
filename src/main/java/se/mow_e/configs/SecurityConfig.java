@@ -1,4 +1,4 @@
-package se.swebot.configs;
+package se.mow_e.configs;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,12 +13,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import se.swebot.components.EncoderComponent;
-import se.swebot.components.JwtRequestFilter;
-import se.swebot.services.JwtService;
+import se.mow_e.components.EncoderComponent;
+import se.mow_e.components.JwtRequestFilter;
+import se.mow_e.services.JwtService;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+import java.io.IOException;
 import java.io.OutputStream;
 
 @Configuration
@@ -49,18 +50,10 @@ public class SecurityConfig {
             .and()
                 .exceptionHandling()
                     .accessDeniedHandler((request, response, accessDeniedException) -> {
-                        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-                        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                        OutputStream responseStream = response.getOutputStream();
-                        responseStream.write("{\"status\": \"error\"}".getBytes());
-                        responseStream.flush();
+                        sendError(response, HttpServletResponse.SC_FORBIDDEN);
                     })
                     .authenticationEntryPoint((request, response, authException) -> {
-                        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-                        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                        OutputStream responseStream = response.getOutputStream();
-                        responseStream.write("{\"status\": \"error\"}".getBytes());
-                        responseStream.flush();
+                        sendError(response, HttpServletResponse.SC_UNAUTHORIZED);
                     });
 
         http.headers()
@@ -73,6 +66,14 @@ public class SecurityConfig {
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
+    }
+
+    private static void sendError(HttpServletResponse response, int scUnauthorized) throws IOException {
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setStatus(scUnauthorized);
+        OutputStream responseStream = response.getOutputStream();
+        responseStream.write("{\"status\": \"error\"}".getBytes());
+        responseStream.flush();
     }
 
     @Autowired

@@ -1,4 +1,4 @@
-package se.swebot.components;
+package se.mow_e.components;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

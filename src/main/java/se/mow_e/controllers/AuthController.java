@@ -1,4 +1,4 @@
-package se.swebot.controllers;
+package se.mow_e.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import se.swebot.models.LoginRequest;
-import se.swebot.services.JwtService;
+import se.mow_e.models.LoginRequest;
+import se.mow_e.services.JwtService;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package se.swebot.components;
+package se.mow_e.components;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,7 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-import se.swebot.services.JwtService;
+import se.mow_e.services.JwtService;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

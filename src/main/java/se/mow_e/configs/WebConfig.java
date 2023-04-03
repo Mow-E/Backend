@@ -1,4 +1,4 @@
-package se.swebot.configs;
+package se.mow_e.configs;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;

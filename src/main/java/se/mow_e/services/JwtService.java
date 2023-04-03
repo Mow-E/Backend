@@ -1,4 +1,4 @@
-package se.swebot.services;
+package se.mow_e.services;
 
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
@@ -13,12 +13,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-@Component
+@Service
 public class JwtService {
 
     private final Logger log = LoggerFactory.getLogger(JwtService.class);
