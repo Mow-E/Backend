@@ -1,4 +1,4 @@
-package se.swebot.models;
+package se.mow_e.models;
 
 public class LoginRequest {
 

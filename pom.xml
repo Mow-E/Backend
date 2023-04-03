@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>se</groupId>
-	<artifactId>swebot</artifactId>
+	<artifactId>mow_e</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SweBot</name>
-	<description>Demo project for Spring Boot</description>
+	<name>Mow-E</name>
+	<description>Super-Duper-Macro-Edge-Grass-Cutting-Tiknologi</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
