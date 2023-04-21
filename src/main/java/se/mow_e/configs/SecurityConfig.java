@@ -44,7 +44,7 @@ public class SecurityConfig {
                 .antMatchers("/h2-console", "/h2-console/**").permitAll()
                 .antMatchers("/swagger-ui", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs", "/v3/api-docs/**").permitAll()
                 .antMatchers("/auth/*").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
             .and()
                 .logout().permitAll().logoutSuccessUrl("/login").invalidateHttpSession(true)
             .and()
@@ -63,7 +63,7 @@ public class SecurityConfig {
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        // http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
