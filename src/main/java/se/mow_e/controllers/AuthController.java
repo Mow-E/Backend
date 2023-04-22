@@ -50,6 +50,7 @@ public class AuthController {
         } catch (BadCredentialsException e) {
 
             response.put("status", "error");
+            response.put("message", "do not mess with me"); // Wrong credentials, hashmap parser messes the order btw
 
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
