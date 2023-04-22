@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import javax.persistence.*;
 
+@SuppressWarnings("ALL")
 @Entity
 @Table(name = "coordinate_table")
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
@@ -30,20 +31,22 @@ public class Coordinate {
     @Column(name = "state")
     private Integer state;
 
-    @Column(name = "collision_id")
-    private Integer collisionId;
+    @Column(name = "image_id")
+    private String imageId;
 
+    //  Depending on the state it can have different meanings. In case of collision it will have the description of the
+    //  object that was recognized from the image
     @Column(name = "extra")
     private String extra;
 
-    public Coordinate(Long sessionId, String mowerId, Double x, Double y, Long time, Integer state, Integer collisionId, String extra) {
+    public Coordinate(Long sessionId, String mowerId, Double x, Double y, Long time, Integer state, String imageId, String extra) {
         this.sessionId = sessionId;
         this.mowerId = mowerId;
         this.x = x;
         this.y = y;
         this.time = time;
         this.state = state;
-        this.collisionId = collisionId;
+        this.imageId = imageId;
         this.extra = extra;
     }
 
