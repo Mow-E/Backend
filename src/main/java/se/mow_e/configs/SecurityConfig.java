@@ -3,6 +3,7 @@ package se.mow_e.configs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -68,11 +69,11 @@ public class SecurityConfig {
         return http.build();
     }
 
-    private static void sendError(HttpServletResponse response, int scUnauthorized) throws IOException {
+    private static void sendError(HttpServletResponse response, int statusCode) throws IOException {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.setStatus(scUnauthorized);
+        response.setStatus(statusCode);
         OutputStream responseStream = response.getOutputStream();
-        responseStream.write("{\"status\": \"error\"}".getBytes());
+        responseStream.write(("{\"status\": \"error\", \"message\": \""+HttpStatus.resolve(statusCode).getReasonPhrase()+"\"}").getBytes());
         responseStream.flush();
     }
 
