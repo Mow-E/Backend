@@ -3,6 +3,8 @@ package se.mow_e.configs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.event.ContextStartedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -45,7 +47,7 @@ public class SecurityConfig {
                 .antMatchers("/h2-console", "/h2-console/**", "/websocket", "/coordinate").permitAll()
                 .antMatchers("/swagger-ui", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs", "/v3/api-docs/**").permitAll()
                 .antMatchers("/auth/*").permitAll()
-                .anyRequest().permitAll()
+                .anyRequest().authenticated()
             .and()
                 .logout().permitAll().logoutSuccessUrl("/login").invalidateHttpSession(true)
             .and()
@@ -64,7 +66,7 @@ public class SecurityConfig {
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        // http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -82,7 +84,6 @@ public class SecurityConfig {
             throws Exception {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
-                .withDefaultSchema()
                 .withUser(User.withUsername("user")
                         .password(encoder.passwordEncoder().encode("pass"))
                         .roles("ADMIN"));
