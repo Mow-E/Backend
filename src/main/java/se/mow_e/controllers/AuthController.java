@@ -33,8 +33,6 @@ public class AuthController {
         Map<String, Object> response = new HashMap<>();
 
         try {
-            System.out.println(loginRequest.getUsername());
-            System.out.println(loginRequest.getPassword());
             // Authenticate user
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())

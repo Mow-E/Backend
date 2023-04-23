@@ -32,7 +32,7 @@ public class MowerController {
                     message.getTime(),
                     message.getStateId(),
                     null,
-                    null
+                    message.getExtra()  //  Temporary id to bind the image to right coordinate
             );
             if(message.getState() == CoordinateMessage.State.START){
                 Optional<Long> lastSessionId = coordinateRepo.findLastSessionId(message.getMowerId());

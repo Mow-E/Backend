@@ -12,6 +12,9 @@ public class CoordinateMessage {
     private Long time;
 
     private State state;
+
+    private String extra;
+
     public CoordinateMessage(double x, double y) {
         this.x = x;
         this.y = y;
@@ -52,12 +55,20 @@ public class CoordinateMessage {
     public State getState() {
         return state;
     }
+
     public Integer getStateId() {
         return state.ordinal();
     }
-
     public void setState(Integer state) {
         this.state = State.values()[state];
+    }
+
+    public String getExtra() {
+        return extra;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra;
     }
 
     @Override
@@ -68,6 +79,7 @@ public class CoordinateMessage {
                 ", y=" + y +
                 ", time=" + time +
                 ", state=" + state +
+                ", extended='" + extra + '\'' +
                 '}';
     }
 
@@ -76,6 +88,6 @@ public class CoordinateMessage {
         WORK,       // 1
         END,        // 2
         ERROR,      // 3
-        COLLISION,  // 4
+        COLLISION;  // 4
     }
 }
