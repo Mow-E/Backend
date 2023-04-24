@@ -36,6 +36,7 @@ public class Coordinate {
 
     //  Depending on the state it can have different meanings. In case of collision it will have the description of the
     //  object that was recognized from the image
+
     @Column(name = "extra")
     private String extra;
 
@@ -49,7 +50,6 @@ public class Coordinate {
         this.imageId = imageId;
         this.extra = extra;
     }
-
     public Coordinate() {
         // Dummy constructor for unknown spring mind games
     }
@@ -60,5 +60,21 @@ public class Coordinate {
 
     public void setSessionId(Long sessionId) {
         this.sessionId = sessionId;
+    }
+
+    public String getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
+    }
+
+    public String getExtra() {
+        return extra;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra;
     }
 }

@@ -11,4 +11,6 @@ public interface CoordinateRepo extends JpaRepository<Coordinate, Long> {
     @Query(value = "select session_id from coordinate_table where mower_id = :mowerId order by time desc limit 1",nativeQuery = true)   // Ignore this error
     public Optional<Long> findLastSessionId(String mowerId);
 
+    @Query(value = "select * from coordinate_table where extra = :tempImageId",nativeQuery = true)
+    public Coordinate findCoordinateByTempImageId(String tempImageId);
 }
