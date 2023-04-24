@@ -20,13 +20,4 @@ public class SweBotApplication {
         SpringApplication.run(SweBotApplication.class, args);
     }
 
-    @Bean
-    DataSource dataSource(){
-        return new EmbeddedDatabaseBuilder()
-                .setName("test")
-                .setType(EmbeddedDatabaseType.H2)
-                .addScript("schema.sql")
-                .build();
-    }
-
 }

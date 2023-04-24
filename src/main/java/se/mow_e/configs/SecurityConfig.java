@@ -7,6 +7,7 @@ import org.springframework.context.event.ContextStartedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -14,6 +15,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import se.mow_e.components.EncoderComponent;
@@ -79,14 +83,26 @@ public class SecurityConfig {
         responseStream.flush();
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth)
-            throws Exception {
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .withUser(User.withUsername("user")
-                        .password(encoder.passwordEncoder().encode("pass"))
-                        .roles("ADMIN"));
+    @Bean
+    UserDetailsManager users(DataSource dataSource, JdbcTemplate jdbcTemplate) {
+        UserDetails user = User.builder()
+                .username("user")
+                .password(encoder.passwordEncoder().encode("pass"))
+                .roles("USER")
+                .build();
+        UserDetails admin = User.builder()
+                .username("admin")
+                .password(encoder.passwordEncoder().encode("pass"))
+                .roles("USER", "ADMIN")
+                .build();
+
+        JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
+        manager.setJdbcTemplate(jdbcTemplate);
+
+        if(!manager.userExists(user.getUsername())) manager.createUser(user);
+        if(!manager.userExists(admin.getUsername())) manager.createUser(admin);
+
+        return manager;
     }
 
     @Bean
