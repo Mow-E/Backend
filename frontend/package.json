@@ -6,6 +6,7 @@
   "private": false,
   "scripts": {
     "start": "vite",
+    "dev": "vite serve",
     "build": "vite build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -51,6 +52,7 @@
     "@mui/material": "^5.11.10",
     "@vitejs/plugin-react": "^4.0.0",
     "apexcharts": "^3.37.0",
+    "caniuse-lite": "^1.0.30001481",
     "change-case": "^4.1.2",
     "date-fns": "^2.29.3",
     "history": "^5.3.0",
