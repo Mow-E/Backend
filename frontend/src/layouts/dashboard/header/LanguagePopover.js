@@ -10,16 +10,19 @@ const LANGS = [
     value: 'en',
     label: 'English',
     icon: '/assets/icons/ic_flag_en.svg',
+    disabled: false
   },
   {
     value: 'de',
     label: 'German',
     icon: '/assets/icons/ic_flag_de.svg',
+    disabled: true
   },
   {
     value: 'fr',
     label: 'French',
     icon: '/assets/icons/ic_flag_fr.svg',
+    disabled: true
   },
 ];
 
@@ -74,9 +77,8 @@ export default function LanguagePopover() {
       >
         <Stack spacing={0.75}>
           {LANGS.map((option) => (
-            <MenuItem key={option.value} selected={option.value === LANGS[0].value} onClick={() => handleClose()}>
+            <MenuItem key={option.value} selected={option.value === LANGS[0].value} onClick={() => handleClose()} disabled={option.disabled}>
               <Box component="img" alt={option.label} src={option.icon} sx={{ width: 28, mr: 2 }} />
-
               {option.label}
             </MenuItem>
           ))}
