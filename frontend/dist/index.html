@@ -1,40 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
-<head>
-  <meta charset="utf-8" />
-  <!-- Favicon -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon-0dbeffc3.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAD6UlEQVRYR+1Wa2yTVRh+nvN1I0zmKGqcbgok45bgTNgUYd6Gi7gfssDaQQREifJDREeAIEuc5SJGgSgk8APRJcYfK+0c6ohRMtkCRgkUTeZEdJNs6ki8hZHs2va85utl/Uq7lsQfxKQnab6v57097/O+7zkfcYMXb3B8ZABkGPj/MLDi1x3zSSwQor2xoP7bVNPzVN+uhyEoDor6wl1Y91Mq3fQMCOjsce0FuREQAtRa8FLTtNcOJnPs6N2+l4JNgJjqfoHUeqe5Do0HIi2Aqq5XXydZF+eACCKoK47N2NVm3a+6VP8sNd4PDbdEJISIlmc+Ltr5QTIQKQFUdtVVUvM4kPS8uDD4e1ZxW7krYDpe3LlxipGV8zOAKdcGIjmoEbzvsxlv/JAgG4+ainNb83CT6iSkYNwaUq0+MXv3h6b8sQvbtitIvfluJp+YGc9M7ugq89R4glZ/4zLwSMeWAwQ2RJmMGsWzi6/a7tnz4KMnXTa5ZaAHxJ1hvZhW3Buxvn3uW3H9kBTAfN/LxYZh8wGwpb4rzPKqRYAUKeLdtPcK8c+IH7N8pfv+siaUYHfvNxta+68ML/KPaOTmTkBuXnZYJ9ZYsf+E2QMq8ovpxCIIYfaR+ABVJNCXz5a8s2VcAIa75kkZwSd6VBByHQDy75iE2wsnpU0wiYI2qNacv39/qE/MVXJu062+kn1/g+F04ktw1JkNjQ4EMDMaPPq8a3oecu0pmLCWPlJ4Kr7ZueDgK6mQxwPwODYD3AOzTyPZh55+wEaFqXMmC8mIjbUe0b63tCzZO2xMnP3bwreHrg/AUWc+gIsgbg4ZWEH4Q4C67p5pb6GS2uurBZ/vKT98JKrr7N6aFzQm7iSwGMBVLfpQ8/QdDTEGPI73AK6Ncx4FEQIg1fkFuadUlvoFkDQNwUt9dmMWSg+bloAIH79Y1w7BQ9ZKiegXwwC81aXQ6gwY6ub4ZZYgiFas8lSYgts+X7NbBNusXZx4Vqi1fz7R0BDVeeBsbRkMdTqROek1e5HwOk4DXJiUWsEAtJqHFe7QrWY/sS5Pjw79CCB/bCwt80nKd1cGRkphOfHmfv3CMq3RlOCfHCU8jpUAx8bkGqVhQJxwelus+zktq5YgqJvHZj8mHAJ02WBVY9x1XXDyuUIGpVuAyBiFDUi2El7nlxCUxwUOz2gbqDaj2n0+GTNZzcvXieAABBMi8n4DXDlS3WheXgnLfnz1+oDW+wEYkfB92WQFIS4F7/dlEM4DJQeKl6HUKSx1dyctiXWzadlUiK0SFD8GAp/i6eY/Utp8tHyOElSQcjUYkGOo8fSn/R5IC+I/KmQAZBjIMPAvTgVgH3pc+kwAAAAASUVORK5CYII=">
-  <link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAB5klEQVQ4T7WTX0jTURTHv+f+dJubuVQmA/+AGAwVJEgIQ0IhIhRRhxvRg/YQ+OTTFDEphhQKUr2IhFAa9FI/YoagKD4Iwh7ECeshl0SjgnwILXW4sd+fE5v91sSnGN63e849n+/3nnsuIcdFOdbjfACer/46FOCbXOaPGQ49+xN2s8qO12Ujn7Ndn3HQ/eXhIyIaZcYOE12dr/b/bov6nRZgA9ArGPAFqseeGZBTgBuR4U4JYj6jQHi67Br33dwemSNCXypOBI2B1mXX+Hp6bxxuCA/a7ECEgYqsxEFS42umPNpihtmIM+FjPHl4OdQ4o2QAJe97x7Rj/UFRoQUOp/XfNYl0MAtwWo4lkh6z4CDrajTUOBU5Abz1VEHHNhKwIgGUVxah0G4C/lad0FIE8eJT8/S9s02Ue94A5IUGIA7YTPlDxc6CCQBSVrMSMHPN9+aXP9p27j8XQnQpij5JeOe+Dl1ay/RDwyJuy+0lS32zzHw3ZTHtXtCT/VuvBq9sDtToGhlPGSfIniCAprQSYQVCvQN3YO/Cam9pMqasg7mWQKGEorbAK8cuLQ6YD8RRmJldkhALhEDXRah5dWDahVeOnhrt2RYLbI56/Cr+gP4ZJZNb6LBCtdQi/DN8PqP8Px8sZwd/AOi9piHKVl80AAAAAElFTkSuQmCC">
+    <meta name="theme-color" content="#000000" />
+    <link rel="manifest" href="data:application/json;base64,ewogICJzaG9ydF9uYW1lIjogIk1vdy1lIiwKICAibmFtZSI6ICJtb3ctZSBkYXNoYm9hcmQiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJmYXZpY29uL2FuZHJvaWQtY2hyb21lLTE5MngxOTIucG5nIiwKICAgICAgInNpemVzIjogIjE5MngxOTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9wbmciCiAgICB9LAogICAgewogICAgICAic3JjIjogImZhdmljb24vYW5kcm9pZC1jaHJvbWUtNTEyeDUxMi5wbmciLAogICAgICAic2l6ZXMiOiAiNTEyeDUxMiIsCiAgICAgICJ0eXBlIjogImltYWdlL3BuZyIKICAgIH0KICBdLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgInRoZW1lX2NvbG9yIjogIiMwMDAwMDAiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiNmZmZmZmYiCn0K" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-  <meta name="theme-color" content="#000000" />
-  <link rel="manifest" href="data:application/json;base64,ewogICJzaG9ydF9uYW1lIjogIk1pbmltYWwgQXBwIiwKICAibmFtZSI6ICJSZWFjdCBNYXRlcmlhbCBNaW5pbWFsIFVJIEtpdCIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImZhdmljb24vYW5kcm9pZC1jaHJvbWUtMTkyeDE5Mi5wbmciLAogICAgICAic2l6ZXMiOiAiMTkyeDE5MiIsCiAgICAgICJ0eXBlIjogImltYWdlL3BuZyIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiZmF2aWNvbi9hbmRyb2lkLWNocm9tZS01MTJ4NTEyLnBuZyIsCiAgICAgICJzaXplcyI6ICI1MTJ4NTEyIiwKICAgICAgInR5cGUiOiAiaW1hZ2UvcG5nIgogICAgfQogIF0sCiAgInN0YXJ0X3VybCI6ICIuIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAidGhlbWVfY29sb3IiOiAiIzAwMDAwMCIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiI2ZmZmZmZiIKfQo=" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Using Google Font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- Using Google Font -->
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Using Local Font -->
+    <link rel="stylesheet" type="text/css" href="public/fonts/index.css" />
 
-  <!-- Using Local Font -->
-  <link rel="stylesheet" type="text/css" href="public/fonts/index.css" />
+    <!-- Css simplebar -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplebar/5.3.9/simplebar.min.css" />
 
-  <!-- Css simplebar -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplebar/5.3.9/simplebar.min.css" />
+    <title>Mow-e Dashboard</title>
+    <meta name="description" content="Mow-e Admin Dashboard" />
+    <meta name="keywords" content="mow-e, react,material,kit,application,dashboard,admin,template" />
+    <meta name="author" content="IMS Group 9" />
+    <script type="module" crossorigin src="/assets/index-f6e86ff2.js"></script>
+  </head>
 
-  <title>Minimal UI Kit</title>
-  <meta name="description"
-    content="The starting point for your next project with Minimal UI Kit, built on the newest version of Material-UI ©, ready to be customized to your style" />
-  <meta name="keywords" content="react,material,kit,application,dashboard,admin,template" />
-  <meta name="author" content="Minimal UI Kit" />
-  <script type="module" crossorigin src="/assets/index-618c935f.js"></script>
-</head>
-
-<body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
-  
-  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
-</body>
-
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  </body>
 </html>
