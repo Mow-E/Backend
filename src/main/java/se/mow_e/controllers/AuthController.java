@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import se.mow_e.models.LoginRequest;
 import se.mow_e.services.AuthService;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -23,24 +22,35 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
-        Map<String, Object> response = new HashMap<>();
 
         try {
             String token = authService.createToken(loginRequest.getUsername(), loginRequest.getPassword());
 
-            response.put("status", "successful");
-            response.put("token", token);
-
             // Return token in response
-            return ResponseEntity.ok(response);
+            return ResponseEntity.ok(Map.of(
+                    "status", "successful",
+                    "token", token
+            ));
 
         } catch (BadCredentialsException e) {
 
-            response.put("status", "error");
-            response.put("message", "do not mess with me"); // Wrong credentials, hashmap parser messes the order btw
-
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
+                    "status", "error",
+                    "message", "do not mess with me"
+            ));
         }
     }
+
+    @PostMapping("/signup")
+    public ResponseEntity<?> registerUser(@RequestBody LoginRequest signupRequest) {
+
+        String token = authService.createUser(signupRequest.getUsername(), signupRequest.getPassword());
+
+        return ResponseEntity.ok(Map.of(
+                "status", "successful",
+                "token", token
+        ));
+    }
+
 }
 
