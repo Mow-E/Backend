@@ -20,7 +20,7 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @PostMapping("/login")
+    @PostMapping("/login")  // Login for both users and admins
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
 
         try {
@@ -41,7 +41,7 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/signup") // Creates users
     public ResponseEntity<?> registerUser(@RequestBody LoginRequest signupRequest) {
 
         String token = authService.createUser(signupRequest.getUsername(), signupRequest.getPassword());
