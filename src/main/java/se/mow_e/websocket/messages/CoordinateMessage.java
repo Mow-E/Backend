@@ -9,15 +9,18 @@ public class CoordinateMessage {
 
     private double y;
 
+    private double z;
+
     private Long time;
 
     private State state;
 
     private String extra;
 
-    public CoordinateMessage(double x, double y) {
+    public CoordinateMessage(double x, double y, double z) {
         this.x = x;
         this.y = y;
+        this.z = z;
     }
 
     public double getX() {
@@ -34,6 +37,14 @@ public class CoordinateMessage {
 
     public void setY(double y) {
         this.y = y;
+    }
+
+    public double getZ() {
+        return z;
+    }
+
+    public void setZ(double z) {
+        this.z = z;
     }
 
     public String getMowerId() {
@@ -77,6 +88,7 @@ public class CoordinateMessage {
                 "mowerId=" + mowerId +
                 ", x=" + x +
                 ", y=" + y +
+                ", z=" + z +
                 ", time=" + time +
                 ", state=" + state +
                 ", extended='" + extra + '\'' +
