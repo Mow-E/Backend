@@ -23,6 +23,7 @@ public class MowerService {
                     message.getMowerId(),
                     message.getX(),
                     message.getY(),
+                    message.getZ(),
                     message.getTime(),
                     message.getStateId(),
                     null,

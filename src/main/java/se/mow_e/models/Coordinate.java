@@ -25,6 +25,9 @@ public class Coordinate {
     @Column(name = "y")
     private Double y;
 
+    @Column(name = "z")
+    private Double z;
+
     @Column(name = "time")
     private Long time;
 
@@ -40,11 +43,12 @@ public class Coordinate {
     @Column(name = "extra")
     private String extra;
 
-    public Coordinate(Long sessionId, String mowerId, Double x, Double y, Long time, Integer state, String imageId, String extra) {
+    public Coordinate(Long sessionId, String mowerId, Double x, Double y, Double z, Long time, Integer state, String imageId, String extra) {
         this.sessionId = sessionId;
         this.mowerId = mowerId;
         this.x = x;
         this.y = y;
+        this.z = z;
         this.time = time;
         this.state = state;
         this.imageId = imageId;
