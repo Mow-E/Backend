@@ -58,6 +58,10 @@ public class Coordinate {
         // Dummy constructor for unknown spring mind games
     }
 
+    public String getMowerId() {
+        return mowerId;
+    }
+
     public Long getSessionId() {
         return sessionId;
     }
