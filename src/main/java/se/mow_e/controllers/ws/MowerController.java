@@ -1,4 +1,4 @@
-package se.mow_e.controllers;
+package se.mow_e.controllers.ws;
 
 
 import org.slf4j.Logger;

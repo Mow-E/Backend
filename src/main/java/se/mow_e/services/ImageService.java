@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import se.mow_e.models.Coordinate;
+import se.mow_e.models.Mower;
 import se.mow_e.repository.CoordinateRepo;
+import se.mow_e.repository.MowerRepo;
 import se.mow_e.websocket.messages.ImageMessage;
 
 import java.io.File;
@@ -24,7 +26,7 @@ public class ImageService {
 
     private final Logger log = LoggerFactory.getLogger(ImageService.class);
 
-    private final Map<Long, ByteBuffer[]> imageChunkList = new HashMap<Long, ByteBuffer[]>();   // TODO - Replace with CacheMap - AAAAAAA
+    private final Map<Long, ByteBuffer[]> imageChunkList = new HashMap<>();   // TODO - Replace with CacheMap - AAAAAAA
 
     @Autowired
     private CoordinateRepo coordinateRepo;
@@ -35,6 +37,9 @@ public class ImageService {
 
     @Autowired
     private ImgClassificationService imgClassificationService;
+
+    @Autowired
+    private MowerRepo mowerRepo;
 
 
     public void add(ImageMessage message) {
@@ -66,17 +71,16 @@ public class ImageService {
 
             imageChunkList.remove(id); // No memory leak in case someone stops the image transfer
 
-            UUID uuid = UUID.randomUUID();
+            UUID imageId = UUID.randomUUID();
 
             Coordinate coordinate = coordinateRepo.findCoordinateByTempImageId(String.valueOf(message.getId()));
 
             if (coordinate != null) {
-                coordinate.setImageId(uuid.toString());
-                coordinateRepo.save(coordinate);
+                coordinate.setImageId(imageId.toString());
 
                 // Save the image data to a file
                 new File("data/images/").mkdirs();
-                String imgPath = "data/images/" + uuid + ".jpg";
+                String imgPath = "data/images/" + imageId + ".jpg";
 
                 try (FileOutputStream fos = new FileOutputStream(imgPath)) {
                     fos.write(buffer.array());
@@ -84,6 +88,12 @@ public class ImageService {
                     log.error("Error while saving image", e);
                     return;
                 }
+
+                Mower mower = mowerRepo.findMowerByMowerId(coordinate.getMowerId());
+                mower.addImage(imageId.toString());
+
+                coordinateRepo.save(coordinate);
+                mowerRepo.save(mower);
 
                 executor.execute(() -> {
                     try {
