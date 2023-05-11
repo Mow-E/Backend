@@ -29,6 +29,14 @@ public class Mower {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> images;
 
+    public Mower(String mowerId) {
+        this.mowerId = mowerId;
+    }
+
+    public Mower() {
+        // Dummy constructor for spring voodoo mindgames
+    }
+
     public String getMowerId() {
         return mowerId;
     }
