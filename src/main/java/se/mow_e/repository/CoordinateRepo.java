@@ -20,5 +20,5 @@ public interface CoordinateRepo extends JpaRepository<Coordinate, Long> {
 
     List<Coordinate> findCoordinatesByMowerId(String mowerId);
 
-
+    List<Coordinate> findAllBySessionIdAndMowerId(Long sessionId, String mowerId);
 }
