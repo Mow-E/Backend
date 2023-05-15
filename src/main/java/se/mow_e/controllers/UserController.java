@@ -21,7 +21,6 @@ import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @RestController
 @SecurityRequirement(name = "auth")
@@ -62,8 +61,8 @@ public class UserController {
     public ResponseEntity<ByteArrayResource> getImage(@PathVariable String imageId, Principal principal) throws IOException {
 
         Mower mower = mowerRepo.findMowerByImagesContains(imageId);
-        if (mower != null && Objects.equals(mower.getUsername(), principal.getName())) {
 
+        if (mower != null && principal.getName().equals(mower.getUsername())) {
             Path path = Paths.get("data/images/" + imageId + ".jpg");
             if (!Files.exists(path)) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Image not found");
 
@@ -82,10 +81,11 @@ public class UserController {
     public ResponseEntity<?> authenticateUser(@PathVariable String mowerId, Principal principal) {
 
         Mower mower = mowerRepo.findMowerByMowerId(mowerId);
+
         if (mower != null) {
-            if (mower.getUsername().equals(principal.getName())) {
+            if (principal.getName().equals(mower.getUsername())) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You already own zis robot");
-            } else if (mower.getUsername() == null) {
+            } else if (mower.getUsername() == null || mower.getUsername().isEmpty()) {
                 mower.setUsername(principal.getName());
                 mowerRepo.save(mower);
 
