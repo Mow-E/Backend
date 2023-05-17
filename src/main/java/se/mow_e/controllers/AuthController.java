@@ -44,7 +44,7 @@ public class AuthController {
     @PostMapping("/signup") // Creates users
     public ResponseEntity<?> registerUser(@RequestBody LoginRequest signupRequest) {
 
-        String token = authService.createUser(signupRequest.getUsername(), signupRequest.getPassword());
+        String token = authService.createUser(signupRequest.getUsername(), signupRequest.getPassword(), false);
 
         return ResponseEntity.ok(Map.of(
                 "status", "successful",

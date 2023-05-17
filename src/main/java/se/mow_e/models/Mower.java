@@ -4,6 +4,10 @@ package se.mow_e.models;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import javax.persistence.*;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +65,16 @@ public class Mower {
     }
 
     public void removeOldImages() {
+        for (String imageId : images) {
+            Path path = Paths.get("data/images/" + imageId + ".jpg");
+
+            try {
+                Files.deleteIfExists(path);
+            } catch (IOException e) {
+                // ignore
+            }
+
+        }
         this.images.clear();
     }
 
