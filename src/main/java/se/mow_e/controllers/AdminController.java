@@ -3,20 +3,28 @@ package se.mow_e.controllers;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import se.mow_e.models.LoginRequest;
+import se.mow_e.models.Mower;
 import se.mow_e.repository.CoordinateRepo;
 import se.mow_e.repository.MowerRepo;
 import se.mow_e.services.AuthService;
+import se.mow_e.services.ImageService;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @RestController
 @SecurityRequirement(name = "auth")
 @RequestMapping("/api")
 @PreAuthorize("hasAuthority('ADMIN')")
 public class AdminController {
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @Autowired
     private AuthService authService;
@@ -27,42 +35,52 @@ public class AdminController {
     @Autowired
     private CoordinateRepo coordinateRepo;
 
+    @Autowired
+    private ImageService imageService;
 
-    //----------------------Admin
 
-    @GetMapping(value = "/dashboard/admin/login")
-    public boolean signInAdmin(@RequestBody LoginRequest loginRequest) {                // SignIn for Admins
-        // TODO
-        return true;
-    }
+    //----------------------Admin endpointus
 
     @PostMapping(value = "/dashboard/admin/signup")
-    public ResponseEntity<?> registerAdmin(@RequestBody LoginRequest loginRequest) {             // SignUp for Admins
-        // TODO
-        return ResponseEntity.ok().build();
+    public ResponseEntity<?> registerAdmin(@RequestBody LoginRequest signupRequest) {             // SignUp for Admins
+
+        String token = authService.createUser(signupRequest.getUsername(), signupRequest.getPassword(), true);
+
+        return ResponseEntity.ok(Map.of(
+                "status", "successful",
+                "token", token
+        ));
+
     }
 
-    //----------------------User
-
-    @GetMapping(value = "/dashboard/users/countOwners")
-    public Integer getActiveUsersCount() {      // Amount of users that own a mower
-        // TODO
-        return 1;
-    }
+    //----------------------User-data endpoints
 
     @GetMapping(value = "/dashboard/users/ownersList")
-    public List<?> getActiveUsersList() {       // List of users that own a mower
-        // TODO
-        return List.of();
+    public Set<?> getActiveUsersList() {       // List of users that own a mower
+
+        return mowerRepo.findUsernames();
     }
 
-    @GetMapping(value = "/dashboard/users/delete/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Integer id) {               // Delete a user
-        // TODO
+    @GetMapping(value = "/dashboard/users/delete/{username}")
+    public ResponseEntity<?> deleteUser(@PathVariable String username) {     // Delete a user
+
+        if (authService.userExists(username)) {
+
+            List<Mower> mowersList = mowerRepo.findAllByUsername(username);
+            for (Mower mower : mowersList) {
+
+                mower.setUsername(null);
+
+                coordinateRepo.deleteAll(coordinateRepo.findCoordinatesByMowerId(mower.getMowerId()));
+                mower.removeOldImages();
+                authService.deleteUser(username);
+            }
+            mowerRepo.saveAll(mowersList);
+        }
         return ResponseEntity.ok().build();
     }
 
-    //----------------------Mower
+    //----------------------Mower-data endpointus
 
     @GetMapping(value = "/dashboard/mowers/countOwned")
     public Integer getOwnedMowersCount() {     // Total amount of mowers owned by someone
@@ -88,7 +106,7 @@ public class AdminController {
         return 1;
     }
 
-    //----------------------Extra
+    //----------------------Extra-functionality endpointus
 
     @GetMapping(value = "/dashboard/imageStorage/size")
     public Long imageStorageSize() {                         // Size of image storage in bytes

@@ -78,7 +78,7 @@ public class UserController {
     }
 
     @PostMapping("/user/addMower/{mowerId}")  // Login for both users and admins
-    public ResponseEntity<?> authenticateUser(@PathVariable String mowerId, Principal principal) {
+    public ResponseEntity<?> bindUserToMower(@PathVariable String mowerId, Principal principal) {
 
         Mower mower = mowerRepo.findMowerByMowerId(mowerId);
 
@@ -100,8 +100,6 @@ public class UserController {
             }
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Your mower is fake trash, buy Husqvarna");
-
     }
-
 
 }

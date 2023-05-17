@@ -100,6 +100,7 @@ public class CoordinateMessage {
         WORK,       // 1
         END,        // 2
         ERROR,      // 3
-        COLLISION;  // 4
+        COLLISION,  // 4
+        BORDER     // 5
     }
 }
