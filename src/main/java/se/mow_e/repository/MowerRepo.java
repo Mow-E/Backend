@@ -9,13 +9,23 @@ import java.util.Set;
 
 public interface MowerRepo extends JpaRepository<Mower, Long> {
 
+    @Query("select count(distinct m.username) from Mower m where m.username != null and m.username != ''")
+    Integer queryCountOwners();
+
+    @Query("select m.username from Mower m where m.username != null and m.username != ''")
+    Set<String> queryOwners();
+
     List<Mower> findAllByUsername(String username);
 
-    Mower findMowerByImagesContains(String imageId);
+    List<Mower> getAllMowersByUsernameIsNotNull();
 
     Mower findMowerByMowerId(String mowerId);
 
-    @Query("select m.username from Mower m where m.username != null and m.username != ''")
-    Set<String> findUsernames();
+    Mower findMowerByImagesContains(String imageId);
+
+    Integer countAllMowersByUsernameIsNotNull();
+
+    Integer countAllMowersByStatusIsTrue();
+
 
 }
