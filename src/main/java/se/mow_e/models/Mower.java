@@ -2,6 +2,7 @@ package se.mow_e.models;
 
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import se.mow_e.utils.UtilImage;
 
 import javax.persistence.*;
 import java.io.IOException;
@@ -28,7 +29,7 @@ public class Mower {
     private String username;
 
     @Column(name = "status")
-    private String status;
+    private boolean status;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> images;
@@ -66,13 +67,7 @@ public class Mower {
 
     public void removeOldImages() {
         for (String imageId : images) {
-            Path path = Paths.get("data/images/" + imageId + ".jpg");
-
-            try {
-                Files.deleteIfExists(path);
-            } catch (IOException e) {
-                // ignore
-            }
+            UtilImage.remove(imageId);
 
         }
         this.images.clear();
