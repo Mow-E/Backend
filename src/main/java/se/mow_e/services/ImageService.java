@@ -10,10 +10,9 @@ import se.mow_e.models.Coordinate;
 import se.mow_e.models.Mower;
 import se.mow_e.repository.CoordinateRepo;
 import se.mow_e.repository.MowerRepo;
+import se.mow_e.utils.UtilImage;
 import se.mow_e.websocket.messages.ImageMessage;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
@@ -40,6 +39,7 @@ public class ImageService {
 
     @Autowired
     private MowerRepo mowerRepo;
+
 
 
     public void add(ImageMessage message) {
@@ -78,13 +78,8 @@ public class ImageService {
             if (coordinate != null) {
                 coordinate.setImageId(imageId.toString());
 
-                // Save the image data to a file
-                new File("data/images/").mkdirs();
-                String imgPath = "data/images/" + imageId + ".jpg";
-
-                try (FileOutputStream fos = new FileOutputStream(imgPath)) {
-                    fos.write(buffer.array());
-                    fos.flush();
+                try  {
+                    UtilImage.save(imageId.toString(), buffer);
                 } catch (IOException e) {
                     log.error("Error while saving image", e);
                     return;
@@ -97,6 +92,8 @@ public class ImageService {
                 mowerRepo.save(mower);
 
                 executor.execute(() -> {
+                    String imgPath = UtilImage.IMAGES_DIR + imageId + UtilImage.IMAGE_FORMAT;
+
                     try {
 //                        log.info("Started recognizing the objects from the image: " + imgPath );
 
