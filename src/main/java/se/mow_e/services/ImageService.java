@@ -84,6 +84,7 @@ public class ImageService {
 
                 try (FileOutputStream fos = new FileOutputStream(imgPath)) {
                     fos.write(buffer.array());
+                    fos.flush();
                 } catch (IOException e) {
                     log.error("Error while saving image", e);
                     return;
@@ -109,6 +110,7 @@ public class ImageService {
                     } catch (Exception e) {
                         log.error("Error during image classification process for " + imgPath, e);
                     }
+                    log.info("Executor exists");
                 });
 
             } else {

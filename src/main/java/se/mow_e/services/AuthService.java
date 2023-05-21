@@ -7,6 +7,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -41,22 +42,37 @@ public class AuthService {
         return jwtService.generateToken(userDetails);
     }
 
-    public String createUser(String username, String password){
+    public String createUser(String username, String password, boolean isAdmin){
 
         if(manager.userExists(username)){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User exists");
         }
-
-        UserDetails user = User.builder()
+        User.UserBuilder user = User.builder()
                 .username(username)
-                .password(encoder.passwordEncoder().encode(password))
-                .roles("USER")
-                .build();
+                .password(encoder.passwordEncoder().encode(password));
 
-        manager.createUser(user);
+        if(isAdmin){
+            user.roles("USER","ADMIN");
+        } else {
+            user.roles("USER");
+        }
 
-        return jwtService.generateToken(user);
+        UserDetails buildedUser = user.build();
+        manager.createUser(buildedUser);
+
+        return jwtService.generateToken(buildedUser);
     }
 
+    public void deleteUser(String username) {
+        manager.deleteUser(username);
+    }
+
+    public boolean userExists(String username) {
+        return manager.userExists(username);
+    }
+
+    public UserDetails getUserByUsername(String username) throws UsernameNotFoundException {
+        return manager.loadUserByUsername(username);
+    }
 }
 
