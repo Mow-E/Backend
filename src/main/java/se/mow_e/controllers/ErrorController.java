@@ -22,25 +22,23 @@ public class ErrorController {
 
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<?> handleStatusException(ResponseStatusException ex) {
-        Map<String, Object> error = new HashMap<>();
 
-        error.put("status", "error");
-        error.put("code", ex.getRawStatusCode());
-        error.put("reason", ex.getReason());
-
-        return ResponseEntity.status(ex.getRawStatusCode()).body(error);
+        return ResponseEntity.status(ex.getRawStatusCode()).body(Map.of(
+                "status", "error",
+                "code", ex.getRawStatusCode(),
+                "reason", ex.getReason()
+        ));
     }
 
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
     public ResponseEntity<?> handleStatusException(SQLIntegrityConstraintViolationException ex) {
-        Map<String, Object> error = new HashMap<>();
 
-        error.put("status", "error");
-        error.put("code", ex.getErrorCode());
-        error.put("reason", ex.getLocalizedMessage());
-        error.put("sql", ex.getSQLState());
-
-        return ResponseEntity.status(ex.getErrorCode()).body(error);
+        return ResponseEntity.status(ex.getErrorCode()).body(Map.of(
+                "status", "error",
+                "code", ex.getErrorCode(),
+                "reason", ex.getLocalizedMessage(),
+                "sql", ex.getSQLState()
+        ));
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
