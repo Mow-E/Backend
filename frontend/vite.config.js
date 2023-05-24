@@ -3,6 +3,9 @@ import react from '@vitejs/plugin-react';
 import babel from '@rollup/plugin-babel';
 
 export default defineConfig({
+  server: {
+    port: 3000,
+  },
   esbuild: {
     loader: 'jsx',
     include: [
