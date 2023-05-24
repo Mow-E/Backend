@@ -181,6 +181,14 @@ Dashboard that help the admin to see key information about the all project.
 
 ## How to launch it ?
 
+
+First you need to create a .env
+
+```sh
+VITE_API_HOST=https://mow-e.me/
+
+```
+
 ```sh
 cd frontend/
 yarn install

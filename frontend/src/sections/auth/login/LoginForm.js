@@ -45,12 +45,11 @@ export default function LoginForm({type = 'Login'| 'Signup'}) {
 
   const signup = async () => {
     try {
-      const response = await api.get('auth/signup', {
+      await api.post('auth/signup', {
         username: username,
         password: password,
       });
-      const setToken = useContext(MyContext);
-      setToken(response.data.token);
+      navigate('/login', { replace: true });
     } catch (error) {
       console.log(error);
     }
