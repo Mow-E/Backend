@@ -6,7 +6,7 @@ import { LoadingButton } from '@mui/lab';
 // components
 import Iconify from '../../../components/iconify';
 // api
-import api from '../../../utils/axios';
+import api, { setApiToken } from '../../../utils/axios';
 import MyContext from '../../../context/myContext';
 
 // ----------------------------------------------------------------------
@@ -35,6 +35,7 @@ export default function LoginForm({type = 'Login'| 'Signup'}) {
       });
       
       setToken(response.data.token)
+      setApiToken(response.data.token);
       navigate('/dashboard', { replace: true });
 
     } catch (error) {
