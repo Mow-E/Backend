@@ -193,3 +193,12 @@ The default port used is 3000
 ```sh
 127.0.0.1:3000
 ```
+
+## Endpoints
+
+| Page | Endpoints |
+| ------ | ------ |
+| Login | /login |
+| Signup | /signup |
+| Dashboard | /dashboard/app |
+| User | /dashboard/user |
