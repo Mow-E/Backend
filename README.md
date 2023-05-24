@@ -171,5 +171,25 @@
 
 # Frontendus -> under construction
 
+Dashboard that help the admin to see key information about the all project.
+
+## Stack used
+
 -   Vite
--   Reactus
+-   React.js
+-   MUI 5
+
+## How to launch it ?
+
+```sh
+cd frontend/
+yarn install
+yarn build
+yarn start
+```
+
+The default port used is 3000
+
+```sh
+127.0.0.1:3000
+```

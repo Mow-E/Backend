@@ -7,6 +7,8 @@ import ThemeProvider from './theme';
 // components
 import { StyledChart } from './components/chart';
 import ScrollToTop from './components/scroll-to-top';
+// context
+import { MyContextProvider } from './context/myContext';
 
 // ----------------------------------------------------------------------
 
@@ -17,7 +19,9 @@ export default function App() {
         <ThemeProvider>
           <ScrollToTop />
           <StyledChart />
-          <Router />
+          <MyContextProvider>
+            <Router />
+          </MyContextProvider>
         </ThemeProvider>
       </BrowserRouter>
     </HelmetProvider>

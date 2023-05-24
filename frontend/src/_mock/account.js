@@ -1,8 +1,8 @@
 // ----------------------------------------------------------------------
 
 const account = {
-  displayName: 'Admin',
-  email: 'demo@minimals.cc',
+  displayName: 'Mister Admin',
+  email: 'admin@email.com',
   photoURL: '/assets/images/avatars/avatar_default.jpg',
 };
 
