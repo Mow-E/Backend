@@ -1,8 +1,13 @@
 package se.mow_e.models;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class LoginRequest {
 
+    @Schema(example = "user")
     private String username;
+
+    @Schema(example = "pass")
     private String password;
 
     public LoginRequest() {
