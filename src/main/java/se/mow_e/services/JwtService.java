@@ -3,18 +3,16 @@ package se.mow_e.services;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.*;
-
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -36,7 +34,11 @@ public class JwtService {
 
     public String generateToken(final UserDetails userDetails) {
         final Map<String, Object> claims = new HashMap<>();
-        claims.put(AUTHORITIES_KEY, userDetails.getAuthorities());
+        claims.put(AUTHORITIES_KEY, userDetails.getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(",")));
+
         return createToken(claims, userDetails.getUsername());
     }
 
