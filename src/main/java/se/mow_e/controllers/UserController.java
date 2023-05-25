@@ -25,7 +25,7 @@ import java.util.Map;
 @RestController
 @SecurityRequirement(name = "auth")
 @RequestMapping("/api")
-@PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+@PreAuthorize("hasRole('USER')")
 public class UserController {
 
     @Autowired

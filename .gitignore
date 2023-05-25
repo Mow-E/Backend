@@ -33,4 +33,5 @@ build/
 .vscode/
 
 data/
+src/main/resources/static/
 logs/
