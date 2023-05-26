@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import se.mow_e.models.Coordinate;
 import se.mow_e.models.Mower;
@@ -40,6 +41,10 @@ public class ImageService {
     @Autowired
     private MowerRepo mowerRepo;
 
+    @Value("${storage.image-dir-path}")
+    public void setImageDir(String imageDirPath){
+        UtilImage.IMAGES_DIR = imageDirPath;
+    }
 
 
     public void add(ImageMessage message) {
@@ -113,7 +118,6 @@ public class ImageService {
             } else {
                 log.error("No coordinate found for attaching the image with id: " + message.getId());
             }
-
         }
     }
 

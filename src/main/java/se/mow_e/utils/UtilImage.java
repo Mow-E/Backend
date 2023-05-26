@@ -1,6 +1,10 @@
 package se.mow_e.utils;
 
 
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,7 +17,7 @@ import java.util.stream.Stream;
 
 public class UtilImage {
 
-    public static final String IMAGES_DIR = "data/images/";
+    public static String IMAGES_DIR = "data/images/";
     public static final String IMAGE_FORMAT = ".jpg";
 
     public static void save(String imageId, ByteBuffer buffer) throws IOException {
@@ -54,5 +58,13 @@ public class UtilImage {
         walk.close();
 
         return sum;
+    }
+
+
+    public static ByteArrayResource getImage(String imageId) throws IOException {
+        Path path = Paths.get(IMAGES_DIR + imageId + IMAGE_FORMAT);
+        if (!Files.exists(path)) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Image not found");
+
+        return new ByteArrayResource(Files.readAllBytes(path));
     }
 }
