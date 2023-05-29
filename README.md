@@ -140,6 +140,10 @@
     -   Error handling
     > [LoginRequest.java](src%2Fmain%2Fjava%2Fse%2Fmow_e%2Fmodels%2FLoginRequest.java)
     > - Processes the username and password
+-   [AdminController](src%2Fmain%2Fjava%2Fse%2Fmow_e%2Fcontrollers%2FAdminController.java)
+    -   Makes use of AuthService
+    -   Makes use of ImageService
+    -   Handles CRUD function for users and admins.
 -   [ErrorController.java](src%2Fmain%2Fjava%2Fse%2Fmow_e%2Fcontrollers%2FErrorController.java)
     -   The real error handler
         -   Default errors
