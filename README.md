@@ -1,7 +1,5 @@
 # Documentation of Mow-E Backend
 
-# !!!ZIS IS NOT UP TO DATE!!!
-
 ## High Level Requirements
 
 | #B1.1                                                                                 | #B1.2  | #B1.3  |
@@ -125,6 +123,10 @@
     - Functions for deleteing users.
     - Fetching user statistics.
     - functions to get mower statistics. 
+-   [UserService.java](src%2Fmain%2Fjava%2Fse%2Fmow_e%2Fservices%2FUserService.java)
+    - Get images for a user.
+    - Get history for a user.
+    - Add a mower to a user account.
 -   [ImageService.java](src%2Fmain%2Fjava%2Fse%2Fmow_e%2Fservices%2FImageService.java)
     -   Logic for receiving images
     -   Image storing
@@ -179,6 +181,11 @@
     -   I resist to document all of them
 -   [schema.sql](src%2Fmain%2Fresources%2Fschema.sql)
     -   Initializes the db tables on first application run
+
+## Utils
+
+-   [UtilImage](src%2Fmain%2Fjava%2Fse%2Fmow_e%2FUtils%2FUtilImage.java)
+    - Saving images to file system.
 
 # Frontendus -> under construction
 
