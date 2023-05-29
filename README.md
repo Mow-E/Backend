@@ -83,6 +83,9 @@
 </tbody>
 </table>
 
+# Network diagram
+![network_diagram.png](doc%2Fimages%2Fnetwork_diagram.png)
+
 # File structure overview
 ![detailed_structure_dark.png](doc%2Fimages%2Fdetailed_structure_dark.png)
 
