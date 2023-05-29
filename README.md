@@ -21,6 +21,8 @@
     <th>#B1.2<br>Service for read/write<br>image data</th>
     <th>#B1.3<br>Service for image classification</th>
     <th>#B1.4<br>Security</th>
+    <th>#B1.5<br>Additional Functionality</th>
+    <th>#B1.6<br>Tests</th>
   </tr>
 </thead>
 <tbody>
@@ -29,43 +31,55 @@
     <td>#B1.2a<br>Websocket endpoint<br>for receiving images</td>
     <td>#B1.3a<br>Access to Google Vision API</td>
     <td>#B1.4a<br>Enabling security in Spring</td>
+    <td>#B1.5a<br>Binding a mower to a specific user</td>
+    <td>#B1.6a<br>Python scripts for testing the websockets</td>
   </tr>
   <tr>
     <td>#B1.1b<br>Controller for processing the websocket endpoints</td>
     <td>#B1.2b<br>Image storing</td>
     <td>#B1.3b<br>Service for Image classification</td>
     <td>#B1.4b<br>User-Admin tables in db</td>
+    <td>#B1.5b<br>Frontend for Admin Dashboard</td>
+    <td>#B1.6b<br>Spring tests for high level requirements - authentication, authorization, managing the mower, mowing history, images</td>
   </tr>
   <tr>
     <td>#B1.1c<br>Position data prototype</td>
     <td>#B1.2c<br>Bind image to collision coordinate</td>
     <td>#B1.3c<br>Saving data from Image classification service</td>
     <td>#B1.4c<br>Authentication &amp; Authorization via REST API</td>
+    <td>#B1.5c<br>Endpoints for an overview of user/mower statistics</td>
+    <td>#B1.6c<br>Github actions for Spring tests</td>
   </tr>
   <tr>
     <td>#B1.1d<br>Service for saving positioning data</td>
-    <td>#B1.2d<br></td>
-    <td>#B1.3d</td>
+    <td></td>
+    <td></td>
     <td>#B1.4d<br>Authentification via JWT</td>
+    <td>#B1.5d<br>Endpoint for cleaning the image repository</td>
   </tr>
   <tr>
     <td>#B1.1e<br>Position data broadcast<br>for Mobile</td>
-    <td>#B1.2e<br></td>
-    <td>#B1.3e</td>
+    <td></td>
+    <td></td>
     <td>#B1.4e<br>Websocket authentification</td>
+    <td></td>
   </tr>
   <tr>
-    <td>#B1.4f<br></td>
-    <td>#B1.2f<br></td>
-    <td>#B1.3f</td>
+    <td>#B1.4f<br>Endpoints for retrieving mowing sessions</td>
+    <td></td>
+    <td></td>
     <td>#B1.4f<br>Error handling</td>
+    <td></td>
   </tr>
   <tr>
-    <td>#B1.4g<br></td>
-    <td>#B1.2g<br></td>
-    <td>#B1.3g</td>
-    <td>#B1.4g</td>
+    <td>#B1.4g<br>Establishing a communication protocol</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
   </tr>
+
+
 </tbody>
 </table>
 
