@@ -121,6 +121,10 @@
 -   [AuthService.java](src%2Fmain%2Fjava%2Fse%2Fmow_e%2Fservices%2FAuthService.java)
     -   Creates JWT tokens.
     -   User authentication.
+-   [AdminService.java](src%2Fmain%2Fjava%2Fse%2Fmow_e%2Fservices%2FAdminService.java)
+    - Functions for deleteing users.
+    - Fetching user statistics.
+    - functions to get mower statistics. 
 -   [ImageService.java](src%2Fmain%2Fjava%2Fse%2Fmow_e%2Fservices%2FImageService.java)
     -   Logic for receiving images
     -   Image storing
@@ -144,6 +148,9 @@
     -   Makes use of AuthService
     -   Makes use of ImageService
     -   Handles CRUD function for users and admins.
+-   [UserController](src%2Fmain%2Fjava%2Fse%2Fmow_e%2Fcontrollers%2FUserController.java)
+    - Endpoints for fetching user history and images.
+    - Endpoints for adding a mower to a user account.
 -   [ErrorController.java](src%2Fmain%2Fjava%2Fse%2Fmow_e%2Fcontrollers%2FErrorController.java)
     -   The real error handler
         -   Default errors
