@@ -204,6 +204,14 @@
 -   [UtilImage](src%2Fmain%2Fjava%2Fse%2Fmow_e%2FUtils%2FUtilImage.java)
     - Saving images to file system.
 
+## Tests
+
+-   [AutohControllerTest](src%2Ftest%2Fjava%2Fse%2Fmow_e%2Fcontrollers%2FAuthControllerTest.java)
+    - Tests endpoints for register and login user.
+
+-   [UserControllerTest](src%2Ftest%2Fjava%2Fse%2Fmow_e%2Fcontrollers%2FUserControllerTest.java)
+    - Tests user functionality for fetching history, images and binding mower to a user.
+
 # Frontendus -> under construction
 
 Dashboard that help the admin to see key information about the all project.
